@@ -2,10 +2,13 @@
 
 {% block content %}
     <div class="date">
-        {% if post.published_date %}
-            {{ post.published_date }}
-        {% endif %}
+	{% if post.published_date %}
+	    {{ post.published_date }}
+	{% else %}
+	    <a class="btn btn-default" href="{% url 'post_publish' post.id %}">Publish</a>
+	{% endif %}
     <a class="btn btn-default" href="{% url 'post_edit' post.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+    <a class="btn btn-default" href="{% url 'post_remove' post.id %}"><span class="glyphicon glyphicon-remove"></span></a>
     </div>
     <h1>{{ post.title }}</h1>
     <p>{{ post.text|linebreaks }}</p>
