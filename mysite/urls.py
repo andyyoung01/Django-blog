@@ -16,9 +16,11 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth import views
+#from xadmin.plugins import xversion
+import xadmin
 
 admin.autodiscover()
-
+#xversion.register_models()
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -26,4 +28,6 @@ urlpatterns = [
     url(r'^accounts/logout/$', views.logout, {'next_page': '/'}, name='user_logout'),
     url(r'^search/', include('haystack.urls')),
     url(r'', include('blog.urls')),
+    url(r'xadmin/', include(xadmin.site.urls), name='xadmin'),
 ]
+

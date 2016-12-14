@@ -46,3 +46,23 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+class Page(models.Model):
+    class Meta:
+        app_label = 'blog'
+        verbose_name = 'page'
+        verbose_name_plural = 'page'
+
+    author = models.ForeignKey(User)
+    title = models.CharField(max_length=200)
+    text = models.TextField()
+    porder = models.IntegerField(default=0)
+    created_date = models.DateTimeField(default=timezone.now)
+    published_date = models.DateTimeField(blank=True, null=True)
+
+    def publish(self):
+        self.published_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.title

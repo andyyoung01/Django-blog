@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'haystack',
+    'xadmin',
+    'crispy_forms',
+#    'reversion',
 ]
 
 MIDDLEWARE = [
@@ -134,3 +137,9 @@ HAYSTACK_CONNECTIONS = {
 }
 
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+#ADMINS = (
+    # ('Your Name', 'your_email@example.com'),
+#)
+#MANAGERS = ADMINS
+TEMPLATE_CONTEXT_PROCESSORS ='django.contrib.auth.context_processors.auth'
