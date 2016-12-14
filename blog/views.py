@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from blog.models import Post
+from blog.models import Post, Category
 from blog.forms import PostForm
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -36,6 +36,12 @@ def post_new(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
+	    #if category is null, add default category
+	    category = Category()
+	    category.name='default_category'
+	    category.save()
+
+            post.category=category
             post.save()
             return redirect('post-detail', post.id)
     else:
@@ -70,3 +76,13 @@ def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
     return redirect('post_list')
+
+from haystack.forms import SearchForm
+def full_search(request):
+    """full_search"""
+    keywords = request.GET['q']
+    sform = SearchForm(request.GET)
+    posts = sform.search()
+    print '\n'.join(['%s:%s' % item for item in posts.__dict__.items()])
+    return render(request, 'blog/post_search_list.html',
+                  {'posts': posts, 'list_header': 'key_words \'{}\' search_result'.format(keywords)})

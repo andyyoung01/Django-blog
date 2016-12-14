@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/login/$', views.login, name='user_login'),
     url(r'^accounts/logout/$', views.logout, {'next_page': '/'}, name='user_logout'),
+    url(r'^search/', include('haystack.urls')),
     url(r'', include('blog.urls')),
 ]
